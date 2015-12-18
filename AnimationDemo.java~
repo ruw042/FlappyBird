@@ -1,0 +1,48 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class AnimationDemo extends JFrame {
+  private int x=100;
+  private int y=200;
+  public AnimationDemo() {
+    add(new Flappy());
+    addKeyListener(new KeyAdapter(){
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP)
+        {y=y-20;
+         repaint();
+        }
+      }
+    });     
+  }
+
+
+class Flappy extends JPanel{
+  private ImageIcon imageIcon = new ImageIcon("angry-bird-icon.png");
+  private Image image=imageIcon.getImage();
+  private Timer timer=new Timer(100, new TimerListener());
+  public Flappy(){
+    timer.start();}
+  protected void paintComponent(Graphics g){
+    super.paintComponent(g);
+    g.drawImage(image, x, y,50,50, this);
+  }
+  class TimerListener implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+      y=y+2;
+      repaint();
+    }
+  }
+}
+public static void main(String[] args) {
+  JFrame frame=new AnimationDemo();
+  frame.setLocationRelativeTo(null); 
+  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+  frame.setSize(640, 400); 
+  frame.setVisible(true);
+}
+}
+  
+    
+  
